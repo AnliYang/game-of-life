@@ -1,23 +1,3 @@
-# https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
-#
-# The universe of the Game of Life is an infinite two-dimensional grid of square cells, each of which is in one of two possible states, alive or dead. Every cell interacts with its eight neighbors, which are the cells that are horizontally, vertically, or diagonally adjacent. At each step in time, the following transitions occur:
-#
-# 1. Any live cell with fewer than two live neighbors dies, as if caused by under-population.
-# 2. Any live cell with two or three live neighbors lives on to the next generation.
-# 3. Any live cell with more than three live neighbors dies, as if by over-population.
-# 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
-
-# if cell is alive:
-    # if live_neighbors < 2:
-        # cell becomes dead
-    # if 2 <= live_neighbors <= 3:
-        # cell becomes alive
-    # if live_neighbors > 3:
-        # cell becomes dead
-# else (cell is dead):
-    # if live_neighbors == 3:
-        # cell becomes alive
-
 from pprint import pprint
 
 class Game(object):
@@ -51,13 +31,8 @@ class Game(object):
 
     def regenerate(self):
         """Evaluates the game grid to yield next generation of live cells."""
-        # for live cells
-            # figure out which cells stay alive
-        # for dead cells
-            # figure out which cells to bring to life
-        # adjust the grid to account for any negatives coordinate values
-            # seems optional, could just handle in printing the grid
-        # update the live_cells attr
+        # FIXME adjust the grid to account for any negatives coordinate values
+            # seems optional here, could just handle in printing the grid
 
         new_live_cells = set()
 
@@ -69,8 +44,20 @@ class Game(object):
 
     def evaluate(self, coords):
         """Evaluates a cell to determine alive-ness for next generation.
+        Returns True or False.
 
-        Returns True or False."""
+        The rules:
+            For currently live cells:
+                if live_neighbors < 2:
+                    cell becomes dead
+                if 2 <= live_neighbors <= 3:
+                    cell becomes alive
+                if live_neighbors > 3:
+                    cell becomes dead
+            For currently dead cells:
+                if live_neighbors == 3:
+                    cell becomes alive
+        """
 
         if coords in self.live_cells:
             return 2 <= self.get_live_neighbors(coords) <= 3
